@@ -3,6 +3,8 @@ var fs = require('fs').promises;
 var app = express();
 var pesquisasRouter = require('./pesquisas.js');
 
+global.todosOsEstados = [];
+
 app.use(express.json());
 app.use('/estados', pesquisasRouter);
 
@@ -29,6 +31,7 @@ async function criarEstados() {
 
       console.log('Criando estado: ' + uf.Sigla);
 
+      global.todosOsEstados.push(estadoCompleto);
       escreverArquivo(`./estados/${uf.Sigla}.json`, estadoCompleto);
     });
   } catch (error) {
